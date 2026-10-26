@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-        <Navbar/>
+        <Navbar />
         <Routes>
           {/* the final code will not pass the products to every page, but each page will call the server API */}
           <Route path="/" element={<MainPage />} />
