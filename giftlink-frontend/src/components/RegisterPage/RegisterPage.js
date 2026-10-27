@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-
+import {useAppContext} from "../../context/AuthContext";
+import {useNavigate} from "react-router-dom";
+import {urlConfig} from '../../config';
 import './RegisterPage.css';
 
 function RegisterPage() {
+
+    const navigate = useNavigate();
+    const {setIsLoggin} = useAppContext();
+    const [showerr, setShowerr] = useState('');
 
     //insert code here to create useState hook variables for firstName, lastName, email, password
     const [firstName, setFirstName] = useState('');
@@ -12,7 +18,33 @@ function RegisterPage() {
 
     // insert code here to create handleRegister function and include console.log
     const handleRegister = async () => {
-        console.log("Register invoked");
+        try{
+            const reponse = await fetch(`${urlConfig.backendUrl}/api/auth/register`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: password,
+                })
+            });
+
+            const json = await reponse.json();
+            if(json.authToken){
+                sessionStorage.setItem('auth-token', json.authToken);
+                sessionStorage.setItem('name', firstName);
+                sessionStorage.setItem('email', email);
+                setIsLoggin(true);
+                navigate('/app');
+            }
+
+            if(json.error){
+                setShowerr(json.error);
+            }
+        }catch (e){
+            console.log("Error fetching details " + e.message);
+        }
     }
 
     return (
@@ -37,7 +69,7 @@ function RegisterPage() {
                         </div>
                         <div className="mb-4">
 
-                            <label htmlFor="lastName" className="form label"> FirstName</label><br/>
+                            <label htmlFor="lastName" className="form label"> LastName</label><br/>
                             <input
                                 id="lastName"
                                 type="text"
@@ -49,7 +81,7 @@ function RegisterPage() {
                         </div>
                         <div className="mb-4">
 
-                            <label htmlFor="email" className="form label"> FirstName</label><br/>
+                            <label htmlFor="email" className="form label"> Email</label><br/>
                             <input
                                 id="email"
                                 type="email"
@@ -61,7 +93,7 @@ function RegisterPage() {
                         </div>
                         <div className="mb-4">
 
-                            <label htmlFor="password" className="form label"> FirstName</label><br/>
+                            <label htmlFor="password" className="form label"> Password</label><br/>
                             <input
                                 id="password"
                                 type="password"

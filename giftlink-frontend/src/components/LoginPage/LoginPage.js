@@ -34,7 +34,7 @@ function LoginPage() {
                         </div>
                         <div className="mb-4">
 
-                            <label htmlFor="password" className="form label"> FirstName</label><br/>
+                            <label htmlFor="password" className="form label"> Password</label><br/>
                             <input
                                 id="password"
                                 type="password"
