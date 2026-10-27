@@ -10,7 +10,7 @@ const {loadData} = require("./util/import-mongo/index");
 
 const app = express();
 app.use("*",cors());
-const port = 3061;
+const port = 3060;
 
 // Connect to MongoDB; we just do this one time
 connectToDatabase().then(() => {
@@ -44,6 +44,8 @@ app.use(pinoHttp({ logger }));
 // Search API Task 2: add the searchRoutes to the server by using the app.use() method.
 //{{insert code here}}
 
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
