@@ -47,6 +47,7 @@ app.use(pinoHttp({ logger }));
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
+
 // Global Error Handler
 app.use((err, req, res, next) => {
     console.error(err);
