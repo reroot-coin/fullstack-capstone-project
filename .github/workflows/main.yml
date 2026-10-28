@@ -30,7 +30,7 @@ jobs:
           find ./giftlink-backend -name auth.js -exec jshint --esversion=6 {} +
           find ./giftlink-backend -name giftRoutes.js -exec jshint {} +
           find ./giftlink-backend -name searchRoutes.js -exec jshint {} +
-          echo "Linted all the js files successfully"
+          echo "Linted all the js files successfully now"
 
   client_build:
       name: Build client
