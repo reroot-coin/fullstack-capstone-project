@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
                 return res.status(404).json({message: 'Wrong password'});
             }
 
-            const userName = existingUser.Firstname;
+            const userName = existingUser.firstName;
             const userEmail = existingUser.email;
 
             let payload = {
